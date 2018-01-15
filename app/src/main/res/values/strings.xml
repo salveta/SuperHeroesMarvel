@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SuperHeroes</string>
+    <string name="real_name">Real Name: </string>
+    <string name="height">Height: </string>
+    <string name="power">Power: </string>
+    <string name="ability">Ability: </string>
+    <string name="group">Group: </string>
+    <string name="error_conexion">Error de conexión</string>
+    <string name="error_super_heroe_detail">Error mostrando el Super Heroe, intentalo de nuevo más tarde</string>
+</resources>
