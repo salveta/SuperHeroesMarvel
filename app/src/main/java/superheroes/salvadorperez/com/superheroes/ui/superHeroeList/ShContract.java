@@ -30,5 +30,6 @@ interface ShContract {
         }
 
         void getSuperHeroes(OnGetSuperHeroes listener);
+        void onDestroyObserver();
     }
 }

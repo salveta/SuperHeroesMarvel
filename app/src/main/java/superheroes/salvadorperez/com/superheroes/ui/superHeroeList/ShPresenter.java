@@ -32,6 +32,7 @@ public class ShPresenter implements ShContract.presenter, ShContract.model.OnGet
     @Override
     public void onSuccess(List<SuperHeroe> superHeroes) {
         mSuperHeroe = superHeroes;
+        model.onDestroyObserver();
         mView.showSuperHeroesList(superHeroes);
         mView.hideLoading();
     }

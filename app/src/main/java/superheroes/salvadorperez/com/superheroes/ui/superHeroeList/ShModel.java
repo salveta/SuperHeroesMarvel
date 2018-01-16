@@ -25,4 +25,9 @@ public class ShModel implements ShContract.model {
                                listener.onFailure(throwable.toString())));
 
     }
+
+    @Override
+    public void onDestroyObserver() {
+        mCompositeDisposable.clear();
+    }
 }
