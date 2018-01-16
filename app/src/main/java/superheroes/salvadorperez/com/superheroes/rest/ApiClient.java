@@ -26,6 +26,7 @@ public class ApiClient {
                     .baseUrl(BASE_URL)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
+                    .client(OkHttpProvider.getOkHttpInstance())
                     .build();
         }
 
