@@ -94,7 +94,9 @@ public class ShListActivity extends BaseActivity implements ShContract.view{
 
     @Override
     public void hideLoading() {
-        progressBar.setVisibility(View.GONE);
+        if(progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
 }
