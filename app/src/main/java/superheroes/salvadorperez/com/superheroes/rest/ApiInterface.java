@@ -1,7 +1,8 @@
 package superheroes.salvadorperez.com.superheroes.rest;
 
 
-import retrofit2.Call;
+import io.reactivex.Single;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import superheroes.salvadorperez.com.superheroes.model.SuperHeroe;
 
@@ -11,5 +12,5 @@ import superheroes.salvadorperez.com.superheroes.model.SuperHeroe;
 
 public interface ApiInterface {
     @GET(".")
-    Call<SuperHeroe> getSuperHeroes();
+    Single<Response<SuperHeroe>> getSuperHeroes();
 }

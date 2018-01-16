@@ -1,10 +1,10 @@
 package superheroes.salvadorperez.com.superheroes.ui.superHeroeList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import superheroes.salvadorperez.com.superheroes.ApplicationConfig;
-import superheroes.salvadorperez.com.superheroes.model.SuperHeroe;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import superheroes.salvadorperez.com.superheroes.rest.ApiClient;
 
 /**
  * Created by Salva on 15/01/2018.
@@ -12,24 +12,17 @@ import superheroes.salvadorperez.com.superheroes.model.SuperHeroe;
 
 public class ShModel implements ShContract.model {
 
-    private Call<SuperHeroe> mCall;
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void getSuperHeroes(final OnGetSuperHeroes listener) {
-        mCall = ApplicationConfig.getApiService().getSuperHeroes();
-        mCall.enqueue(new Callback<SuperHeroe>() {
-            @Override
-            public void onResponse(Call<SuperHeroe> call, Response<SuperHeroe> response) {
-                if (response.isSuccessful()) {
-                    listener.onSuccess(response.body().getSuperheroes());
-                }
-            }
+        mCompositeDisposable.add(ApiClient.getMyApiClient().getSuperHeroes()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(superHeroeResponse ->
+                                listener.onSuccess(superHeroeResponse.body().getSuperheroes()),
+                       throwable ->
+                               listener.onFailure(throwable.toString())));
 
-            @Override
-            public void onFailure(Call<SuperHeroe> call, Throwable t) {
-                t.printStackTrace();
-                listener.onFailure(t.toString());
-            }
-        });
     }
 }

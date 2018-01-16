@@ -1,6 +1,7 @@
 package superheroes.salvadorperez.com.superheroes.rest;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -10,16 +11,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     public static final String BASE_URL = "https://api.myjson.com/bins/bvyob/";
-    private static Retrofit retrofit = null;
+    private static Retrofit mRetrofit = null;
+    private static ApiInterface mApiInterface;
+
+    public static ApiInterface getMyApiClient() {
+        getClient();
+        return mApiInterface;
+    }
 
 
-    public static Retrofit getClient() {
-        if (retrofit==null) {
-            retrofit = new Retrofit.Builder()
+    public static void getClient() {
+        if (mRetrofit == null) {
+            mRetrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-        return retrofit;
+
+        mApiInterface = mRetrofit.create(ApiInterface.class);
     }
 }
